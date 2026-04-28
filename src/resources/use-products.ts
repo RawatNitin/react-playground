@@ -10,9 +10,11 @@ export type TProduct = {
 export const useProducts = ({
   limit,
   skip = 0,
+  abortSignal,
 }: {
   limit: number;
   skip: number;
+  abortSignal: any;
 }) => {
   const [products, setProducts] = useState<TProduct[]>([]);
   const [total, setTotal] = useState<number>();
@@ -26,6 +28,7 @@ export const useProducts = ({
         setIsLoading(true);
         const response = await fetch(
           `https://dummyjson.com/products?limit=${limit}&skip=${skip}`,
+          { ...(abortSignal ? { signal: abortSignal } : {}) },
         );
         const { products, total } = await response.json();
         setProducts(products);
