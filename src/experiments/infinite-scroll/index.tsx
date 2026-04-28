@@ -1,4 +1,4 @@
-import { useState, useEffect, type UIEvent, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useProducts, type TProduct } from "../../resources/use-products";
 
 export const InfiniteScroll = () => {

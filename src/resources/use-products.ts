@@ -28,7 +28,6 @@ export const useProducts = ({
           `https://dummyjson.com/products?limit=${limit}&skip=${skip}`,
         );
         const { products, total } = await response.json();
-        console.log("useProducts response", products, total);
         setProducts(products);
         setTotal(total);
         setError(null);
