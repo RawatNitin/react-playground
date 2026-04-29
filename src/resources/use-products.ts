@@ -14,7 +14,7 @@ export const useProducts = ({
 }: {
   limit: number;
   skip: number;
-  abortSignal: any;
+  abortSignal?: any;
 }) => {
   const [products, setProducts] = useState<TProduct[]>([]);
   const [total, setTotal] = useState<number>();
