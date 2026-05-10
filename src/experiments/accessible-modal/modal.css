@@ -28,9 +28,6 @@
   align-items: top;
 }
 
-.modal .header .cross:hover {
-}
-
 .modal .footer {
   display: flex;
   justify-content: space-around;

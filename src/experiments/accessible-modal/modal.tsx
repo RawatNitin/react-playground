@@ -9,6 +9,7 @@ export const Modal = ({
   restoreFocusRef,
 }) => {
   const closeButtonRef = useRef(null);
+  const overlayRef = useRef(null);
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -29,8 +30,9 @@ export const Modal = ({
       if (event.key === "Tab") {
         const modal = document.querySelector(".modal");
         if (!modal) return;
+
         const focusable = modal.querySelectorAll(
-          'button, [tabindex]:not([tabindex="-1"])'
+          'button, [tabindex]:not([tabindex="-1"])',
         );
         const first = focusable[0];
         const last = focusable[focusable.length - 1];
@@ -56,6 +58,12 @@ export const Modal = ({
     };
   }, [onCancel]);
 
+  const onClick = (e) => {
+    if (e.target === overlayRef.current) {
+      onCancel();
+    }
+  };
+
   return (
     <div
       role="dialog"
@@ -63,6 +71,8 @@ export const Modal = ({
       aria-labelledby="modal-title"
       aria-describedby="modal-content"
       className="modal-overlay"
+      onClick={onClick}
+      ref={overlayRef}
     >
       <div className="modal">
         <header className="header">
