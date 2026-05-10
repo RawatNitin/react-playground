@@ -1,0 +1,38 @@
+.modal-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  width: 500px;
+  height: 300px;
+  border: 1px dashed gray;
+  background-color: white;
+  display: grid;
+  grid-template-rows: 50px 1fr 50px;
+  z-index: 200;
+  padding: 10px;
+}
+
+.modal .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: top;
+}
+
+.modal .header .cross:hover {
+}
+
+.modal .footer {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
