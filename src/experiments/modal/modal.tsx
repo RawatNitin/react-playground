@@ -9,6 +9,7 @@ export const Modal = ({
   restoreFocusRef,
 }) => {
   const closeButtonRef = useRef(null);
+
   useEffect(() => {
     document.body.style.overflow = "hidden";
     closeButtonRef.current.focus();
@@ -17,6 +18,21 @@ export const Modal = ({
       restoreFocusRef.current.focus();
     };
   }, []);
+
+  useEffect(() => {
+    const onKeyPress = (event) => {
+      console.log(event.key);
+      if (event.key === "Escape") {
+        onCancel();
+      }
+    };
+
+    document.addEventListener("keydown", onKeyPress);
+
+    return () => {
+      document.removeEventListener("keydown", onKeyPress);
+    };
+  }, [onCancel]);
 
   return (
     <div

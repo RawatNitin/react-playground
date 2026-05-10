@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { createPortal } from "react-dom";
 import { Modal } from "./modal";
 
@@ -7,18 +7,18 @@ import "./index.css";
 export const ModalExperiment = () => {
   const [showModal, setShowModal] = useState(false);
   const [content, setContent] = useState("");
+  const clickElementRef = useRef(null);
 
   const onSubmit = () => {
-    console.log("submitted");
     setShowModal(false);
   };
 
   const onCancel = () => {
-    console.log("cancelled");
     setShowModal(false);
   };
 
   const onShow = (content) => {
+    clickElementRef.current = document.activeElement;
     setContent(content);
     setShowModal(true);
   };
@@ -86,6 +86,7 @@ export const ModalExperiment = () => {
               content={content}
               onCancel={onCancel}
               onSubmit={onSubmit}
+              restoreFocusRef={clickElementRef}
             />,
             document.body,
           )
