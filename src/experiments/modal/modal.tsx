@@ -20,17 +20,39 @@ export const Modal = ({
   }, []);
 
   useEffect(() => {
-    const onKeyPress = (event) => {
-      console.log(event.key);
+    const onKeyDown = (event) => {
       if (event.key === "Escape") {
         onCancel();
+        return;
+      }
+
+      if (event.key === "Tab") {
+        const modal = document.querySelector(".modal");
+        if (!modal) return;
+        const focusable = modal.querySelectorAll(
+          'button, [tabindex]:not([tabindex="-1"])'
+        );
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (event.shiftKey) {
+          if (document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+          }
+        }
       }
     };
 
-    document.addEventListener("keydown", onKeyPress);
+    document.addEventListener("keydown", onKeyDown);
 
     return () => {
-      document.removeEventListener("keydown", onKeyPress);
+      document.removeEventListener("keydown", onKeyDown);
     };
   }, [onCancel]);
 
