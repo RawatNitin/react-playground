@@ -1,0 +1,20 @@
+.grid-row {
+  display: flex;
+  justify-content: center;
+  gap: 10;
+}
+
+.grid-cell {
+  border: 1px dashed gray;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  background-color: white;
+  transition: background-color 0.5s ease;
+}
+
+.grid-cell.selected {
+  background-color: aquamarine;
+}

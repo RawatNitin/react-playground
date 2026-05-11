@@ -6,7 +6,9 @@
 // import { WebWorker } from "./experiments/web-worker";
 // import { ModalExperiment } from "./experiments/accessible-modal";
 // import { AccordionTest } from "./experiments/react-patterns/compound-component";
-import { BroadcastChannelApi } from "./experiments/broadcast-channel-api";
+// import { BroadcastChannelApi } from "./experiments/broadcast-channel-api";
+import { NByNGrid } from "./experiments/nByNGrid";
+
 function App() {
   return (
     <div id="app">
@@ -18,7 +20,8 @@ function App() {
       {/* <WebWorker /> */}
       {/* <ModalExperiment /> */}
       {/* <AccordionTest /> */}
-      <BroadcastChannelApi />
+      {/* <BroadcastChannelApi /> */}
+      <NByNGrid rows={4} cols={4} />
     </div>
   );
 }
