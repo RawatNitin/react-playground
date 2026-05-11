@@ -1,19 +1,19 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useBroadcastChannel } from "./broadcast-channel";
 
 export const BroadcastChannelApi = () => {
   const [name, setName] = useState("");
 
-  const onMessage = (message) => {
+  const onMessage = useCallback((message) => {
     setName(message.data);
-  };
+  }, []);
 
   const { sendMessage } = useBroadcastChannel({ onMessage });
 
-  const onChange = (name) => {
+  const onChange = useCallback((name) => {
     sendMessage(name);
     setName(name);
-  };
+  }, []);
 
   return (
     <div>
