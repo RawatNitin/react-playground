@@ -4,7 +4,9 @@
 // import { AbortControllerComp } from "./experiments/abort-controller";
 // import { MyPromise } from "./experiments/my-promise";
 // import { WebWorker } from "./experiments/web-worker";
-import { ModalExperiment } from "./experiments/accessible-modal";
+// import { ModalExperiment } from "./experiments/accessible-modal";
+// import { AccordionTest } from "./experiments/react-patterns/compound-component";
+import { BroadcastChannelApi } from "./experiments/broadcast-channel-api";
 function App() {
   return (
     <div id="app">
@@ -14,7 +16,9 @@ function App() {
       {/* <AbortControllerComp /> */}
       {/* <MyPromise /> */}
       {/* <WebWorker /> */}
-      <ModalExperiment />
+      {/* <ModalExperiment /> */}
+      {/* <AccordionTest /> */}
+      <BroadcastChannelApi />
     </div>
   );
 }
