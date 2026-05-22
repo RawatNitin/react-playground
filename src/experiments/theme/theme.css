@@ -1,0 +1,11 @@
+:root {
+  --color-primary: darkgray;
+}
+
+[data-theme="dark"] {
+  --color-primary: red;
+}
+
+.theme-description {
+  color: var(--color-primary);
+}
