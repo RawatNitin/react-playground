@@ -1,11 +1,5 @@
-import { Search } from "./experiments/search";
-
 function App() {
-  return (
-    <div id="app">
-      <Search />
-    </div>
-  );
+  return <div id="app"></div>;
 }
 
 export default App;

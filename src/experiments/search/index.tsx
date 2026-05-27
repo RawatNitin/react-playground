@@ -39,6 +39,13 @@ export const Search = () => {
     debouncedFetchList(search);
   }, [search]);
 
+  useEffect(() => {
+    const num = Math.random();
+    if (num < 0.1) {
+      throw "err";
+    }
+  }, [search]);
+
   return (
     <div className="App">
       <h1>TypeAhead</h1>
