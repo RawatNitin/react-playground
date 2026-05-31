@@ -1,8 +1,8 @@
-import { Sort } from "./experiments/sort-visualise";
+import { Slide } from "./experiments/slide";
 function App() {
   return (
     <div id="app">
-      <Sort />
+      <Slide />
     </div>
   );
 }
