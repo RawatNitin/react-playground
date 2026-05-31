@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import { useDebounce } from "./use-debounce";
 
 const Languages = [
   "java",
@@ -30,10 +31,12 @@ export const Search = () => {
     setProductList(result);
   }, []);
 
-  const debouncedFetchList = useCallback(
-    debounce(fetchAndSetProducts, 1000),
-    [],
-  );
+  // const debouncedFetchList = useCallback(
+  //   debounce(fetchAndSetProducts, 1000),
+  //   [],
+  // );
+
+  const debouncedFetchList = useDebounce(fetchAndSetProducts, 1000);
 
   useEffect(() => {
     debouncedFetchList(search);
