@@ -1,10 +1,10 @@
 // import { Slide } from "./experiments/slide";
 // import { InterSection } from "./experiments/intersection-observer";
-import { NestedComments } from "./experiments/nested-comments";
+import { GrpahQlExperiment } from "./experiments/graphql";
 function App() {
   return (
     <div id="app">
-      <NestedComments />
+      <GrpahQlExperiment />
     </div>
   );
 }
