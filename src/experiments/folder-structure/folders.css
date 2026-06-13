@@ -1,0 +1,16 @@
+.directory {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+}
+
+.directory-children {
+  margin-left: 32px;
+  border-left: 0.5px solid lightgray;
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
+}
