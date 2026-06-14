@@ -31,7 +31,9 @@ import { Theme, ThemeProvider } from "./experiments/theme";
 import { TryTabs } from "./experiments/tabs";
 import { Virtualised } from "./experiments/virtualisation";
 import { WebWorker } from "./experiments/web-worker";
-import { Playground } from "./playground";
+import { FilterList } from "./experiments/deferred-value";
+import { TimersContainer } from "./experiments/timers";
+// import { Playground } from "./playground";
 
 type ExperimentRoute = {
   path: string;
@@ -198,6 +200,18 @@ const experiments: ExperimentRoute[] = [
     description: "Runs a calculation in a module worker.",
     element: <WebWorker />,
   },
+  {
+    path: "/experiments/deferred-value",
+    title: "Filter List",
+    description: "Filters list using defferedValue hook.",
+    element: <FilterList />,
+  },
+  {
+    path: "/experiments/timers",
+    title: "Timers",
+    description: "Count down timer with play and pause",
+    element: <TimersContainer />,
+  },
 ];
 
 function useLocationPath() {
@@ -336,14 +350,16 @@ function App() {
 
   return (
     <div id="app">
-      {/* {path === "/" ? (
+      {path === "/" ? (
         <NavigationPage onNavigate={navigate} />
       ) : activeExperiment ? (
         <ExperimentPage experiment={activeExperiment} onNavigate={navigate} />
       ) : (
         <NotFoundPage onNavigate={navigate} />
-      )} */}
-      <Playground />
+      )}
+
+      {/* Playground */}
+      {/* <Playground /> */}
     </div>
   );
 }
