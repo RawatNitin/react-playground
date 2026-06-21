@@ -33,7 +33,8 @@ import { Virtualised } from "./experiments/virtualisation";
 import { WebWorker } from "./experiments/web-worker";
 import { FilterList } from "./experiments/deferred-value";
 import { TimersContainer } from "./experiments/timers";
-// import { Playground } from "./playground";
+import { TicTacToe } from "./experiments/tic-tac-toe";
+import { Playground } from "./playground";
 
 type ExperimentRoute = {
   path: string;
@@ -48,6 +49,12 @@ const normalizePath = (path: string) => {
 };
 
 const experiments: ExperimentRoute[] = [
+  {
+    path: "/experiments/tic-tac-toe",
+    title: "Tic Tac Toe",
+    description: "Tic tac toe game.",
+    element: <TicTacToe />,
+  },
   {
     path: "/experiments/abort-controller",
     title: "Abort Controller",

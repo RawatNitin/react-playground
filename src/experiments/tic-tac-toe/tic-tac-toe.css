@@ -1,0 +1,21 @@
+.game-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border: 1px dashed gray;
+  border-collapse: collapse;
+}
+
+.game {
+  border: 1px dashed gray;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  .cell {
+    border: 1px solid black;
+    width: 100px;
+    height: 100px;
+    display: grid;
+    place-items: center;
+  }
+}
