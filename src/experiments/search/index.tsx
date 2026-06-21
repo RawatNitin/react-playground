@@ -1,16 +1,5 @@
-import { useState, useEffect, useCallback } from "react";
-import { useDebounce } from "./use-debounce";
-
-const Languages = [
-  "java",
-  "javascript",
-  "python",
-  "r",
-  "swift",
-  "kotlin",
-  "typescript",
-  "go",
-];
+import { useDebounceCallback } from "../hooks/use-debounce-callback";
+import { useCallback } from "react";
 
 const fetchProducts = async (query: string) => {
   const response = await fetch(
@@ -21,60 +10,42 @@ const fetchProducts = async (query: string) => {
   return data.products;
 };
 
+import { useEffect, useState } from "react";
+
 export const Search = () => {
-  const [search, setSearch] = useState("");
-  const [productList, setProductList] = useState([]);
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState([]);
 
-  const fetchAndSetProducts = useCallback(async (search) => {
-    const result = await fetchProducts(search);
-    console.log("search ", result);
-    setProductList(result);
-  }, []);
+  const fetchProductsAndSet = useCallback(async () => {
+    const results = await fetchProducts(query);
+    setResults(results);
+  }, [query]);
 
-  // const debouncedFetchList = useCallback(
-  //   debounce(fetchAndSetProducts, 1000),
-  //   [],
-  // );
-
-  const debouncedFetchList = useDebounce(fetchAndSetProducts, 1000);
+  const { debouncedCb: debouncedSearch } = useDebounceCallback({
+    cb: fetchProductsAndSet,
+    delay: 2000,
+  });
 
   useEffect(() => {
-    debouncedFetchList(search);
-  }, [search]);
-
-  useEffect(() => {
-    const num = Math.random();
-    if (num < 0.1) {
-      throw "err";
-    }
-  }, [search]);
+    debouncedSearch(query);
+  }, [debouncedSearch, query]);
 
   return (
-    <div className="App">
-      <h1>TypeAhead</h1>
-      <h2>Start Searching!</h2>
+    <div>
       <input
         type="text"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
+        placeholder="Search users..."
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
       />
+
       <ul>
-        {productList?.map((item) => (
-          <li key={item.id} className={"listItem"}>
-            {item.title}
+        {results.map((product) => (
+          <li className="listItem" key={product.id}>
+            {product.title}
           </li>
         ))}
       </ul>
     </div>
   );
-};
-
-const debounce = (fn, time) => {
-  let timer;
-  return function (...args) {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      fn(...args);
-    }, time);
-  };
 };
