@@ -1,20 +1,20 @@
-.grid-row {
-  display: flex;
-  justify-content: center;
-  gap: 10;
+.grid {
+  display: grid;
+  width: 300px;
+  height: 300px;
 }
 
 .grid-cell {
   border: 1px dashed gray;
-  width: 50px;
-  height: 50px;
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-items: center;
   background-color: white;
-  transition: background-color 0.5s ease;
+}
+.grid-cell:hover {
+  cursor: pointer;
 }
 
 .grid-cell.selected {
-  background-color: aquamarine;
+  background-color: red;
 }

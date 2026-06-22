@@ -1,98 +1,58 @@
-import { useCallback, useEffect, useState } from "react";
-
+import { useEffect, useState, useRef } from "react";
 import "./grid.css";
 
-const delay = (ms: number) =>
-  new Promise((resolve) => {
-    setTimeout(() => resolve(null), ms);
-  });
+export const NByNGrid = ({ rows = 3, cols = 3 }) => {
+  const [history, setHistory] = useState<Array<Array<boolean>>>([
+    new Array(rows * cols).fill(false),
+  ]);
 
-function GridCell({
-  id,
-  selected,
-  onCellSelect,
-}: {
-  id: number;
-  selected: boolean;
-  onCellSelect: (id: number) => void;
-}) {
-  const onClick = useCallback(() => {
-    onCellSelect(id);
-  }, [onCellSelect, id]);
+  const timeout = useRef(null);
 
-  return (
-    <div
-      onClick={onClick}
-      className={`grid-cell ${selected ? "selected" : ""}`}
-    >
-      {id}
-    </div>
-  );
-}
+  const [isClearing, setIsClearing] = useState(false);
 
-export const NByNGrid = function ({
-  rows,
-  cols,
-}: {
-  rows: number;
-  cols: number;
-}) {
-  const [selectedIds, setSelectedIds] = useState(new Set<number>());
+  const cells = history[history.length - 1];
 
-  const clearSelection = (id: number) => {
-    setSelectedIds((ids) => {
-      const next = new Set(ids);
-      next.delete(id);
-      return next;
-    });
-  };
+  const onClick = (index) => {
+    const newCells = [...cells];
+    newCells[index] = true;
 
-  const clearSelections = async () => {
-    const ids = [...selectedIds];
-    for (const value of ids.reverse()) {
-      clearSelection(value);
-      await delay(1000);
-    }
-  };
-
-  const onCellSelect = (selectedId: number) => {
-    setSelectedIds((oldIds) => {
-      const newIds = new Set(oldIds);
-      newIds.add(selectedId);
-      return newIds;
-    });
+    setHistory([...history, newCells]);
   };
 
   useEffect(() => {
-    if (selectedIds.size >= 5) {
-      clearSelections();
+    if (!isClearing || history.length <= 1) return;
+
+    timeout.current = setTimeout(() => {
+      setHistory((history) => history.slice(0, -1));
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeout.current);
+    };
+  }, [isClearing, history]);
+
+  useEffect(() => {
+    if (history.length === 6 && !isClearing) {
+      setIsClearing(true);
     }
-  }, [selectedIds.size]);
+  }, [history.length, setIsClearing, isClearing]);
 
   return (
-    <>
-      <button onClick={clearSelections}>Clear Selections</button>
-      <div className="grid">
-        {Array(rows)
-          .fill("")
-          .map((_, ri) => (
-            <div className="grid-row">
-              {Array(cols)
-                .fill("")
-                .map((_, ci) => {
-                  const id = ri * cols + ci;
-                  const selected = selectedIds.has(id);
-                  return (
-                    <GridCell
-                      onCellSelect={onCellSelect}
-                      selected={selected}
-                      id={id}
-                    />
-                  );
-                })}
-            </div>
-          ))}
-      </div>
-    </>
+    <div
+      className="grid"
+      style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }}
+    >
+      {cells.map((cell, index) => {
+        return (
+          <div
+            key={index}
+            onClick={cell || isClearing ? undefined : () => onClick(index)}
+            className={`grid-cell ${cell ? "selected" : ""}`}
+          >
+            {index}
+          </div>
+        );
+      })}
+    </div>
   );
 };
