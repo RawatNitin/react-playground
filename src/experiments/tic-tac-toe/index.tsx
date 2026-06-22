@@ -13,8 +13,12 @@ const winningIndexes = [
 ];
 
 export const TicTacToe = () => {
-  const [cells, setCells] = useState(new Array(9).fill(null));
-  const [isX, setIsX] = useState(true);
+  const [history, setHistory] = useState([new Array(9).fill(null)]);
+  const [step, setStep] = useState(0);
+
+  const cells = useMemo(() => {
+    return history[step];
+  }, [step, history]);
 
   const whoIsWinner = useMemo(() => {
     let winner;
@@ -45,20 +49,43 @@ export const TicTacToe = () => {
 
   const onPlay = (cellIndex) => {
     if (cells[cellIndex] || whoIsWinner || isMatchDraw) return;
-    const newCells = [...cells];
-    newCells[cellIndex] = isX ? "X" : "O";
 
-    setCells(newCells);
-    setIsX(!isX);
+    const newCells = [...cells];
+    newCells[cellIndex] = step < 1 || step % 2 === 0 ? "O" : "X";
+
+    setHistory((history) => [...history, newCells]);
+    setStep((step) => step + 1);
   };
 
   const onReset = () => {
-    setCells(new Array(9).fill(null));
+    setHistory([new Array(9).fill(null)]);
+    setStep(0);
+  };
+
+  const onUndo = () => {
+    setStep((step) => step - 1);
+    setHistory((history) => history.slice(0, -1));
   };
 
   return (
     <div className="game-container">
-      <button onClick={onReset}>Reset Game</button>
+      <ul>
+        {history.map((item, index) => {
+          return (
+            <li>
+              {index} {JSON.stringify(item)}
+            </li>
+          );
+        })}
+      </ul>
+      <div>
+        <button onClick={onReset}>Reset Game</button>
+        {
+          <button disabled={step === 0} onClick={onUndo}>
+            Undo
+          </button>
+        }
+      </div>
       Winner is: {whoIsWinner}
       {isMatchDraw ? <h6>Match Draw</h6> : null}
       <div
