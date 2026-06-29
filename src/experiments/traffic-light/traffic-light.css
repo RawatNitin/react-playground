@@ -1,0 +1,36 @@
+.traffic-light {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  background: #2b2b2b;
+  border-radius: 16px;
+  width: fit-content;
+
+  .light {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #4a4a4a;
+    opacity: 0.4;
+    transition: opacity 0.2s ease, box-shadow 0.2s ease;
+
+    &.active.red {
+      background: #ff3b30;
+      opacity: 1;
+      box-shadow: 0 0 20px 4px rgba(255, 59, 48, 0.8);
+    }
+
+    &.active.yellow {
+      background: #ffcc00;
+      opacity: 1;
+      box-shadow: 0 0 20px 4px rgba(255, 204, 0, 0.8);
+    }
+
+    &.active.green {
+      background: #34c759;
+      opacity: 1;
+      box-shadow: 0 0 20px 4px rgba(52, 199, 89, 0.8);
+    }
+  }
+}

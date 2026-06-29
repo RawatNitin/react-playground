@@ -34,6 +34,7 @@ import { WebWorker } from "./experiments/web-worker";
 import { FilterList } from "./experiments/deferred-value";
 import { TimersContainer } from "./experiments/timers";
 import { TicTacToe } from "./experiments/tic-tac-toe";
+import { TrafficLight } from "./experiments/traffic-light";
 import { Playground } from "./playground";
 
 type ExperimentRoute = {
@@ -219,6 +220,12 @@ const experiments: ExperimentRoute[] = [
     description: "Count down timer with play and pause",
     element: <TimersContainer />,
   },
+  {
+    path: "/experiments/traffic-light",
+    title: "Traffic Light",
+    description: "Red, yellow, green light cycling on a fixed timer.",
+    element: <TrafficLight />,
+  },
 ];
 
 function useLocationPath() {
@@ -357,16 +364,16 @@ function App() {
 
   return (
     <div id="app">
-      {path === "/" ? (
+      {/* {path === "/" ? (
         <NavigationPage onNavigate={navigate} />
       ) : activeExperiment ? (
         <ExperimentPage experiment={activeExperiment} onNavigate={navigate} />
       ) : (
         <NotFoundPage onNavigate={navigate} />
-      )}
+      )} */}
 
       {/* Playground */}
-      {/* <Playground /> */}
+      <Playground />
     </div>
   );
 }

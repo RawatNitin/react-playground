@@ -1,3 +1,5 @@
+import { TrafficLight } from "../experiments/traffic-light";
+
 export const Playground = () => {
-  return <div>Playground</div>;
+  return <TrafficLight />;
 };
